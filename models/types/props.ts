@@ -1,4 +1,5 @@
 import { GestureResponderEvent, StyleProp, ViewStyle } from "react-native";
+import Meal from "../meals";
 
 export interface GridTilePropsI {
   cardStyle?: StyleProp<ViewStyle>;
@@ -13,4 +14,8 @@ export interface MealdetailsPropI {
   affordability: string;
   textStyle?: any;
   cardStyle?: StyleProp<ViewStyle>;
+}
+
+export interface MealsListngPropsI {
+  displayedMeals: Meal[];
 }

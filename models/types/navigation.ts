@@ -4,6 +4,7 @@ import { RouteProp } from "@react-navigation/native";
 // Interface for rootstack. Undefined if no value is passed, pass objects if param values are required
 export type RootStackParamList = {
   CategoriesScreen: undefined;
+  FavoritesScreen: undefined;
   MealDetailsScreen: {
     mealId: string;
     mealTitle: string;

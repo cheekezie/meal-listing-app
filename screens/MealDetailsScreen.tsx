@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import HeaderIconButton from "../components/HeaderIconButton";
 import List from "../components/MealDetail/List";
@@ -9,13 +9,19 @@ import Meal from "../models/meals";
 import { MealDetailScreenNavPropsI } from "../models/types/navigation";
 import { MealdetailsPropI } from "../models/types/props";
 import theme from "../theme";
+import { FavoritesContext } from "../store/context/favorites-context";
 
 const MealDetailsScreen = (props: MealDetailScreenNavPropsI) => {
   const { navigation, route } = props;
   const { mealId, mealTitle } = route.params;
+  const favoriteMealsContext = useContext(FavoritesContext);
+
+  const isFavorite = favoriteMealsContext.ids.includes(mealId);
 
   const headerButtonPressed = () => {
-    console.log("pressed here");
+    isFavorite
+      ? favoriteMealsContext.removeFavorite(mealId)
+      : favoriteMealsContext.addFavorite(mealId);
   };
 
   useLayoutEffect(() => {
@@ -24,9 +30,18 @@ const MealDetailsScreen = (props: MealDetailScreenNavPropsI) => {
       headerRight: () => {
         return (
           <HeaderIconButton
-            icon={"menu"}
-            color={theme.Colors.white}
+            icon={isFavorite ? "heart" : "heart-outline"}
+            color={isFavorite ? theme.Colors.lightSecondary : "white"}
             onPress={headerButtonPressed}
+          />
+        );
+      },
+      headerLeft: () => {
+        return (
+          <HeaderIconButton
+            icon={"close"}
+            color={"white"}
+            onPress={navigation.goBack}
           />
         );
       },

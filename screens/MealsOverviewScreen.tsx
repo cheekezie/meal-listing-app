@@ -4,7 +4,8 @@ import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useLayoutEffect } from "react";
 import { CATEGORIES, MEALS } from "../data/dummmy-data";
 import Meal from "../models/meals";
-import MealItem from "../components/MealItem";
+import MealItem from "../components/MealsList/MealItem";
+import MealsList from "../components/MealsList/MealsList";
 
 // use CategoryOvervieScreenNavPropsI interface
 const MealsOverviewScreen: React.FC<CategoryOvervieScreenNavPropsI> = ({
@@ -16,10 +17,6 @@ const MealsOverviewScreen: React.FC<CategoryOvervieScreenNavPropsI> = ({
     meal.categoryIds.includes(catId)
   );
 
-  const renderMealItem = (itemData: { item: Meal }) => {
-    return <MealItem meal={itemData.item} />;
-  };
-
   useLayoutEffect(() => {
     const categoryTitle = CATEGORIES.find((m) => m.id === catId)?.title;
     navigation.setOptions({
@@ -27,23 +24,7 @@ const MealsOverviewScreen: React.FC<CategoryOvervieScreenNavPropsI> = ({
     });
   }, [catId, navigation]);
 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={displayedMeals}
-        keyExtractor={(item) => item.id}
-        renderItem={renderMealItem}
-      />
-    </View>
-  );
+  return <MealsList displayedMeals={displayedMeals} />;
 };
 
 export default MealsOverviewScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-});

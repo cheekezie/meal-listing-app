@@ -1,12 +1,12 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import Meal from "../models/meals";
+import Meal from "../../models/meals";
 import { Pressable } from "react-native";
-import theme from "../theme";
-import { DisplayStyles } from "../styles/Display.style";
+import theme from "../../theme";
+import { DisplayStyles } from "../../styles/Display.style";
 import { useNavigation } from "@react-navigation/native";
-import { MealDetailScreenNavPropsI } from "../models/types/navigation";
-import MealDetails from "./MealDetails";
-import { MealdetailsPropI } from "../models/types/props";
+import { MealDetailScreenNavPropsI } from "../../models/types/navigation";
+import MealDetails from "../MealDetails";
+import { MealdetailsPropI } from "../../models/types/props";
 
 const MealItem = (prop: { meal: Meal }) => {
   const navigation = useNavigation();
