@@ -6,11 +6,20 @@ import { FavoritesContext } from "../store/context/favorites-context";
 import { MEALS } from "../data/dummmy-data";
 import { View } from "react-native";
 import theme from "../theme";
+import { useAppSelector } from "../store/hooks/hooks";
+import { selectFavorite } from "../store/redux/favorites";
 
 const FavoritesScreen = () => {
-  const favoriteMealsContext = useContext(FavoritesContext);
+  // CONTEXT API IMPLEMENTATION
+  //   const favoriteMealsContext = useContext(FavoritesContext);
+  //   const favoriteMeals = MEALS.filter((meal) =>
+  //     favoriteMealsContext.ids.includes(meal.id)
+  //   );
+
+  // REDUX API IMPLEMENTATION
+  const favoriteMealsContext = useAppSelector(selectFavorite);
   const favoriteMeals = MEALS.filter((meal) =>
-    favoriteMealsContext.ids.includes(meal.id)
+    favoriteMealsContext.includes(meal.id)
   );
   if (favoriteMeals.length === 0) {
     return (

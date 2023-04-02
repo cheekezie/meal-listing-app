@@ -10,18 +10,35 @@ import { MealDetailScreenNavPropsI } from "../models/types/navigation";
 import { MealdetailsPropI } from "../models/types/props";
 import theme from "../theme";
 import { FavoritesContext } from "../store/context/favorites-context";
+import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
+import {
+  addFavorite,
+  removeFavorite,
+  selectFavorite,
+} from "../store/redux/favorites";
 
 const MealDetailsScreen = (props: MealDetailScreenNavPropsI) => {
   const { navigation, route } = props;
   const { mealId, mealTitle } = route.params;
-  const favoriteMealsContext = useContext(FavoritesContext);
 
-  const isFavorite = favoriteMealsContext.ids.includes(mealId);
+  // CONTEXT API IMPLEMENTATION
+  // const favoriteMealsContext = useContext(FavoritesContext);
+  // const isFavorite = favoriteMealsContext.ids.includes(mealId);
+  // const headerButtonPressed = () => {
+  //   isFavorite
+  //     ? favoriteMealsContext.removeFavorite(mealId)
+  //     : favoriteMealsContext.addFavorite(mealId);
+  // };
+
+  // REDUX IMPLEMENTATION
+  const favoriteMealsContext = useAppSelector(selectFavorite);
+  const dispatch = useAppDispatch();
+  const isFavorite = favoriteMealsContext.includes(mealId);
 
   const headerButtonPressed = () => {
     isFavorite
-      ? favoriteMealsContext.removeFavorite(mealId)
-      : favoriteMealsContext.addFavorite(mealId);
+      ? dispatch(removeFavorite({ id: mealId }))
+      : dispatch(addFavorite({ id: mealId }));
   };
 
   useLayoutEffect(() => {
